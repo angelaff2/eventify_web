@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bullómetro | ¿Cuánto sabes de Bullas?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="imagenes/eventify-logo.png">
+
+  <style>
+  cosa {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #F8F9FF;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: 60vh; /* ocupa algo pero no fuerza toda la pantalla */
+}
+
+
+    .start-screen, .question-screen, .result-screen {
+      display: none;
+      text-align: center;
+      max-width: 700px;
+      padding: 40px;
+    }
+
+    .start-screen.active, .question-screen.active, .result-screen.active {
+      display: block;
+    }
+
+    h1 {
+      color: #27339E;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background: #FF0000;
+      color: white;
+      margin-top: 20px;
+
+      padding: 14px 30px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #FF0000;
+    }
+
+    .options {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .options button {
+  background: white;
+  color: #27339E;
+  border: 2px solid #27339E;
+  padding: 10px 16px;
+  cursor: pointer;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.options button:hover {
+  background: #FF0000; /* rojo oscuro tipo "firebrick" */
+  color: white;
+  border-color: #FF0000;
+  box-shadow: 0 4px 12px rgba(255, 17, 17, 0.4);
+  transform: translateY(-2px);
+}
+
+
+
+    canvas {
+      margin-top: 30px;
+      max-width: 400px;
+    }
+
+    .result-message {
+      font-size: 1.2rem;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <img src="imagenes/eventify-logo_sin fondo.png" alt="Logo Eventify">
+      <button class="menu-toggle" id="menu-toggle">&#9776;</button> <!-- Icono menú -->
+      <ul id="menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="sobre_mi.html">Sobre mí</a></li>
+        <li><a href="bullometro.html">Bullómetro</a></li>
+        <li><a href="que_personaje_soy.html">¿Qué personaje sería?</a></li>
+        <li><a href="APP.html">Prueba la APP</a></li>
+        
+        <li><a href="agradecimientos.html">Agradecimientos</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+      <cosa>
+<div class="start-screen active">
+  <h1>¿Estás listo para saber cuánto sabes de Bullas?</h1>
+  <p>Responde 20 preguntas. Cada pantalla es una pregunta. Al final… tu nivel bullero.</p>
+  <button onclick="startQuiz()">¡Empezar!</button>
+</div>
+
+<div class="question-screen">
+  <h1 id="question-title"></h1>
+  <div class="options" id="options-container"></div>
+  <div id="feedback" style="margin-top: 20px; font-size: 1rem;"></div>
+
+</div>
+
+<div class="result-screen">
+  <h1>Tu nivel bullero</h1>
+  <canvas id="resultChart"></canvas>
+  <p class="result-message" id="resultMessage"></p>
+</div>
+</cosa>
+<footer>
+  <div>
+    <h4>Proyecto</h4>
+    <a href="index.html">Inicio</a>
+    <a href="sobre_mi.html">Sobre mí</a>
+    <a href="bullometro.html">Bullómetro</a>
+    <a href="que_personaje_soy.html">¿Qué personaje sería?</a>
+    <a href="APP.html">Prueba la APP</a>
+  </div>
+  <div>
+    <h4>Angela Fernández</h4>
+    <a href="contacto.html">Contacto</a>
+    <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+  </div>
+  <div>
+    <h4>Créditos</h4>
+    <a href="agradecimientos.html">Agradecimientos</a>
+    <a href="#">React & Firebase</a>
+  </div>
+  <p>© 2025 Eventify | Hecho con ❤️ por Angela Fernández</p>
+</footer>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    
+    const questions = [
+  {
+    question: "¿Qué río nace en Bullas?",
+    options: ["Río Segura", "Río Mula", "Río Quípar", "Río Guadalentín"],
+    answer: 1,
+    explanation: "📝 El río Mula nace en Bullas y es afluente del Segura."
+  },
+  {
+    question: "¿Cómo se llama el monumento natural más emblemático de Bullas?",
+    options: ["La Cueva del Agua", "El Salto del Usero", "Las Fuentes del Marqués", "Pozo de la Nieve"],
+    answer: 1,
+    explanation: "📝 El Salto del Usero es uno de los 5 Monumentos Naturales de la Región de Murcia."
+  },
+  {
+    question: "¿Cuál es el gentilicio de las personas de Bullas?",
+    options: ["Bulleños", "Bulleros", "Bullanos", "Bullistas"],
+    answer: 1,
+    explanation: "📝 Se dice “bullero” o “bullera”."
+  },
+  {
+    question: "¿Cuál de estas fiestas tiene lugar en octubre en Bullas?",
+    options: ["Fiesta del vino", "Semana Santa", "San Marcos", "Fiestas patronales en honor a la Virgen del Rosario"],
+    answer: 3,
+    explanation: "📝 Se celebran el primer domingo de octubre."
+  },
+  {
+    question: "¿Qué vino tiene Denominación de Origen propia en Bullas?",
+    options: ["Rioja", "Ribera del Duero", "Bullas", "Jumilla"],
+    answer: 2,
+    explanation: "📝 La DO Bullas regula la producción vitivinícola local."
+  },
+  {
+    question: "¿Cuál es la variedad de uva más característica de Bullas?",
+    options: ["Merlot", "Tempranillo", "Monastrell", "Garnacha"],
+    answer: 2,
+    explanation: "📝 Es la variedad reina de la DO Bullas."
+  },
+  {
+    question: "¿Qué escultura romana se encontró en Bullas?",
+    options: ["Apolo de Cehegín", "Hércules de Archena", "Venus de Bullas", "Marte de Mula"],
+    answer: 2,
+    explanation: "📝 Se halló en la villa romana de Los Cantos."
+  },
+  {
+    question: "¿Cómo se llama el mercadillo artesanal de Bullas?",
+    options: ["El Zacatón", "El Zacatín", "El Zaque", "El Mercadillo de la Peña"],
+    answer: 1,
+    explanation: "📝 Se celebra el primer domingo de cada mes desde 1994."
+  },
+  {
+    question: "¿Cuál es la altitud aproximada de Bullas?",
+    options: ["450 m", "520 m", "650 m", "720 m"],
+    answer: 2,
+    explanation: "📝 Está a unos 650 metros sobre el nivel del mar."
+  },
+  {
+    question: "¿Qué producto es típico en la gastronomía de Bullas?",
+    options: ["Arroz con bogavante", "Ensalada murciana", "Caldero", "Arroz con conejo y caracoles"],
+    answer: 3,
+    explanation: "📝 Plato muy típico y tradicional."
+  },
+  {
+    question: "¿Dónde se guarda la escultura de la 'Venus de Bullas'?",
+    options: ["Museo del Vino de Bullas", "Iglesia del Rosario", "Museo Arqueológico Nacional de Madrid", "Casa de Cultura"],
+    answer: 2,
+    explanation: "📝 Aunque fue hallada en Los Cantos, ahora está en Madrid, lejos del vino y las toñas…"
+  },
+  {
+    question: "¿Qué pueblo tuvo que 'soltar' a Bullas para que se hiciera independiente en 1689?",
+    options: ["Mula", "Cehegín", "Caravaca", "La Copa (ojalá)"],
+    answer: 1,
+    explanation: "📝 Cehegín tuvo que dejar marchar a Bullas como quien suelta a un hijo rebelde con ganas de tener plaza propia."
+  },
+  {
+    question: "¿Qué día es El Zacatín?",
+    options: ["Todos los sábados", "El primer domingo de cada mes", "El día que el Carrascalejo quiere", "Solo en Semana Santa"],
+    answer: 1,
+    explanation: "📝 Una excusa perfecta para comprarte un pan de pueblo, queso y enterarte de todos los cotilleos de la plaza."
+  },
+  {
+    question: "¿Dónde desemboca el río Mula que nace en Bullas?",
+    options: ["En el Mar Menor", "En el río Segura", "En el Pantano del Cenajo", "En la Balsa del parque"],
+    answer: 1,
+    explanation: "📝 De Bullas a Murcia, regando tomates, historias y discusiones sobre quién hace mejor el arroz con conejo."
+  },
+  {
+    question: "¿Dónde se encuentra la escultura del Cristo del Carrascalejo?",
+    options: ["En una peña, al aire libre", "En la iglesia", "En una fuente", "Dentro del Museo del Vino"],
+    answer: 0,
+    explanation: "📝 Está en mitad del monte, vigilando el pueblo."
+  },
+  {
+    question: "¿Cuál de estos parajes NO está en Bullas?",
+    options: ["Valle del Aceniche", "Barranco de la regidora", "El Barranco del Infierno", "El Castellar"],
+    answer: 2,
+    explanation: "📝 Ese último suena a lugar de leyenda… pero está en otro cuento (Alicante, concretamente)."
+  },
+  {
+    question: "¿Qué se celebra en la 'Bajada de la Mora'?",
+    options: ["El solsticio", "La luna llena", "La noche de San Juan", "El cumpleaños del Niño de las Uvas"],
+    answer: 2,
+    explanation: "📝 Una leyenda, una hoguera y una excusa más para acabar en remojo."
+  },
+  {
+    question: "¿Qué nombre tiene el barranco más bajo del término municipal?",
+    options: ["Barranco del Diablo", "Barranco del Taray", "Barranco de los Pozos"],
+    answer: 1,
+    explanation: "📝 Está a unos 483 metros de altitud y es el punto más bajo del municipio."
+  },
+  {
+    question: "¿Cuál de estos platos típicos no lleva carne?",
+    options: ["Rin-ran", "Ajoharina", "Migas con cerdo"],
+    answer: 0,
+    explanation: "📝 El rin-ran se elabora con patata, pimiento seco y bacalao, sin carne."
+  }
+];
+
+    
+    let currentQuestion = 0;
+    let correctAnswers = 0;
+    
+    function startQuiz() {
+      document.querySelector(".start-screen").classList.remove("active");
+      document.querySelector(".question-screen").classList.add("active");
+      showQuestion();
+    }
+    
+    function showQuestion() {
+      const q = questions[currentQuestion];
+      document.getElementById("question-title").textContent = q.question;
+      const optionsContainer = document.getElementById("options-container");
+      const feedbackContainer = document.getElementById("feedback");
+      feedbackContainer.textContent = "";
+      optionsContainer.innerHTML = "";
+    
+      q.options.forEach((option, idx) => {
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.onclick = () => handleAnswer(idx);
+        optionsContainer.appendChild(btn);
+      });
+    }
+    
+    function handleAnswer(selected) {
+      const q = questions[currentQuestion];
+      const feedbackContainer = document.getElementById("feedback");
+    
+      if (selected === q.answer) {
+        correctAnswers++;
+        feedbackContainer.innerHTML = `<p style="color:green;">✅ ¡Correcto!</p><p>${q.explanation}</p>`;
+      } else {
+        feedbackContainer.innerHTML = `<p style="color:red;">❌ Incorrecto</p><p>${q.explanation}</p>`;
+      }
+    
+      // Deshabilitar botones
+      Array.from(document.querySelectorAll("#options-container button")).forEach(btn => btn.disabled = true);
+    
+      setTimeout(() => {
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+          showQuestion();
+        } else {
+          showResult();
+        }
+      }, 2000);
+    }
+    
+    function showResult() {
+  document.querySelector(".question-screen").classList.remove("active");
+  document.querySelector(".result-screen").classList.add("active");
+
+  const ctx = document.getElementById("resultChart").getContext("2d");
+  const percent = Math.round((correctAnswers / questions.length) * 100);
+
+  let message = "";
+
+  if (percent === 100) {
+    const legends = [
+      "🤯 ¡Eres el cronista oficial de Bullas! Hasta la Venus de Bullas te haría la ola.",
+      "🏆 ¡Perfecto! Ni el alcalde sabría tanto. Ya puedes dar visitas guiadas por el pueblo.",
+      "🧙 Nivel abuelo en la plaza: te sabes hasta el nombre del perro del panadero en 1982."
+    ];
+    message = legends[Math.floor(Math.random() * legends.length)];
+  } else if (percent >= 90) {
+    const almostPerfect = [
+      "🍇 Casi rozas el cielo bullero… seguro que tienes un viñedo escondido.",
+      "📜 Muy pro. Si no eres guía turístico, te están perdiendo.",
+      "🕵️‍♀️ Con ese conocimiento, te contratamos para revisar actas del archivo municipal."
+    ];
+    message = almostPerfect[Math.floor(Math.random() * almostPerfect.length)];
+  } else if (percent >= 80) {
+    message = "🎯 Lo tuyo es pasión por Bullas. ¡Te ganaste una toña y un vino en El Zacatín!";
+  } else if (percent >= 70) {
+    message = "📚 Estás a una misa y un pregón de dominar Bullas. ¡Sigue así, bullerillo!";
+  } else if (percent >= 60) {
+    message = "😎 Vas por buen camino. Ya distingues entre una Monastrell y una Garnacha, casi.";
+  } else if (percent >= 50) {
+    message = "🔍 Apruebas por los pelos, como quien aprueba el carnet de coche en Cehegín.";
+  } else if (percent >= 40) {
+    message = "😬 Te falta calle. Se nota que no te has mojado en el Salto del Usero aún.";
+  } else if (percent >= 30) {
+    message = "🪑 Te quedaste en la barra del bar escuchando cotilleos… ¡pero sin aprender nada!";
+  } else if (percent >= 20) {
+    message = "📉 Ni idea, pero al menos sabes que Bullas no está en Albacete. Algo es algo.";
+  } else if (percent >= 10) {
+    message = "🪦 El Carrascalejo se giró solo al ver tus respuestas. Ay madre…";
+  } else {
+    const epicFails = [
+      "🛸 ¿Estás seguro de que has estado en Bullas? Esto parece enviado desde Marte.",
+      "🤡 No pasa nada… todos empezamos sabiendo poco. Pero lo tuyo es preocupante 😂",
+      "🥴 Ni en Google Maps has buscado Bullas, ¿a que no?"
+    ];
+    message = epicFails[Math.floor(Math.random() * epicFails.length)];
+  }
+
+  document.getElementById("resultMessage").textContent = message;
+
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Aciertos', 'Fallos'],
+      datasets: [{
+        data: [correctAnswers, questions.length - correctAnswers],
+        backgroundColor: ['#27339E', '#B22222']
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }
+  });
+}
+
+const toggleButton = document.getElementById('menu-toggle');
+    const menu = document.getElementById('menu');
+  
+    toggleButton.addEventListener('click', () => {
+      menu.classList.toggle('active');
+    });
+
+    </script>
+    
+</body>
+</html>

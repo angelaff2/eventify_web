@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Qué personaje de Bullas eres?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+  <link rel="icon" href="imagenes/eventify-logo.png">
+
+  <style>
+    cosa {
+        margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #F8F9FF;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: 60vh; /* ocupa algo pero no fuerza toda la pantalla */
+
+    }
+
+    .intro-screen, .question-screen, .result-screen {
+        display: none;
+      text-align: center;
+      max-width: 700px;
+      padding: 40px;
+    }
+
+    .intro-screen.active,
+    .question-screen.active,
+    .result-screen.active {
+      display: block;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #27339E;
+    }
+
+    p {
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+
+    .start-btn, .answers button {
+      background-color: #ff0000;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 25px;
+      font-size: 1rem;
+      margin-top: 25px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .answers button {
+      display: block;
+      width: 100%;
+      background-color: white;
+      border: 2px solid #27339E;
+      color: #27339E;
+      margin: 10px 0;
+      border-radius: 40px;
+      margin-top: 20px;
+
+    }
+
+    .answers button:hover, .start-btn:hover {
+      transform: scale(1.03);
+      background-color: red;
+      border: 2px solid red;
+
+      color: white;
+    }
+
+    .personality {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .personality img {
+      width: 150px;
+      border-radius: 10px;
+    }
+    .result-flex {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  margin-top: 30px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.result-text {
+  flex: 1 1 300px;
+}
+
+.result-chart {
+  flex: 1 1 250px;
+  max-width: 300px;
+}
+
+.result-screen h1 {
+  font-size: 1.8rem;
+  color: #27339E;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.result-screen ul {
+  font-size: 0.95rem;
+  padding-left: 20px;
+  line-height: 1.6;
+  font-family: 'Poppins', sans-serif;
+}
+
+.result-screen li {
+  margin-bottom: 8px;
+}
+
+
+  </style>
+</head>
+<nav class="navbar">
+  <div class="nav-container">
+    <img src="imagenes/eventify-logo_sin fondo.png" alt="Logo Eventify">
+    <button class="menu-toggle" id="menu-toggle">&#9776;</button> <!-- Icono menú -->
+    <ul id="menu">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="sobre_mi.html">Sobre mí</a></li>
+      <li><a href="bullometro.html">Bullómetro</a></li>
+      <li><a href="que_personaje_soy.html">¿Qué personaje sería?</a></li>
+      <li><a href="APP.html">Prueba la APP</a></li>
+      
+      <li><a href="agradecimientos.html">Agradecimientos</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
+<cosa>
+
+  <div class="intro-screen active" id="intro">
+    <h1>Descubre que personaje mítico de Bullas eres</h1>
+    <p>Responde 15 preguntas y al final te diremos la verdad: <br>¿Eres más de bar con caracoles, de toñas al fresco, o de perder cobertura en mitad de la plaza?</p>
+
+    <button class="start-btn" onclick="startQuiz()">¡Empezar!</button>
+  </div>
+
+  <div class="question-screen" id="quiz"></div>
+  <div class="result-screen" id="result"></div>
+  <canvas id="resultChart" width="100" height="100" style="margin-top: 30px;"></canvas>
+
+   
+  <script>
+
+const toggleButton = document.getElementById('menu-toggle');
+    const menu = document.getElementById('menu');
+  
+    toggleButton.addEventListener('click', () => {
+      menu.classList.toggle('active');
+    });
+    const personalities = [
+  {
+    name: 'El del bar del Rosendo',
+    image: 'imagenes/rosendo.png',
+    count: 0,
+    description: 'Siempre en la barra, sabiendo todo antes que el Facebook. Tinto con gaseosa y charla infinita.',
+    extra: 'Conoce todas las tapas del pueblo y es capaz de debatir media hora sobre cuál bar hace mejor el caracoles.'
+  },
+  {
+    name: 'La señora del fresco',
+    image: 'imagenes/senora.png',
+    count: 0,
+    description: 'Sabe quién es quién. Se entera de todo desde su silla. Radar bullero activado.',
+    extra: 'Te puede dar el árbol genealógico de medio pueblo solo con ver una cara nueva pasar por la calle.'
+  },
+  {
+    name: 'La reina de la peña',
+    image: 'imagenes/pena.png',
+    count: 0,
+    description: 'Organiza fiestas, eventos y concursos. Siempre con confeti en los bolsillos.',
+    extra: 'Tiene más camisetas de peñas que ropa formal. Siempre va un paso por delante en el programa de fiestas.'
+  },
+  {
+    name: 'El agricultor del Aceniche',
+    image: 'imagenes/aceniche.png',
+    count: 0,
+    description: 'Sabiduría rural, manos en la tierra y frases con refranes. Cosecha datos y tomates.',
+    extra: 'Puede distinguir las estaciones del año por el color de la tierra y el canto de los pájaros.'
+  },
+  {
+    name: 'El adolescente sin cobertura',
+    image: 'imagenes/teen.png',
+    count: 0,
+    description: 'Busca WiFi como quien busca el Santo Grial. Se queja, pero ama Bullas en secreto.',
+    extra: 'Tiene el récord de intentos fallidos de conectar a una red WiFi pública en la plaza del pueblo.'
+  }
+];
+
+    const questions = [
+  ['¿Dónde prefieres pasar una tarde de domingo?', 0, 1, 2, 3, 4],
+  ['¿Qué haces en El Zacatín?', 0, 1, 2, 3, 4],
+  ['¿Qué haces si ves que alguien se tira en el Salto del Usero?', 0, 1, 2, 3, 4],
+  ['Tu bebida ideal en fiestas es...', 0, 1, 2, 3, 4],
+  ['¿Qué harías si organizan un torneo de parchís en Bullas?', 0, 1, 2, 3, 4],
+  ['¿Qué sueles decir cuando alguien se pierde en las fiestas?', 0, 1, 2, 3, 4],
+  ['¿Cuál es tu plan en San Marcos?', 0, 1, 2, 3, 4],
+  ['¿Qué frase encaja más contigo?', 0, 1, 2, 3, 4],
+  ['¿Dónde estarías en una tarde de verano?', 0, 1, 2, 3, 4],
+  ['¿Qué papel tienes en las fiestas patronales?', 0, 1, 2, 3, 4],
+  ['¿Cuál es tu rincón favorito de Bullas?', 0, 1, 2, 3, 4],
+  ['¿Cómo reaccionas cuando llega gente de fuera al pueblo?', 0, 1, 2, 3, 4],
+  ['¿Tu plan favorito en Bullas en otoño?', 0, 1, 2, 3, 4],
+  ['¿Qué dices cuando empieza a llover en fiestas?', 0, 1, 2, 3, 4],
+  ['¿Cuál sería tu lema de vida bullera?', 0, 1, 2, 3, 4]
+];
+
+    let currentQuestion = 0;
+
+    function startQuiz() {
+      document.getElementById('intro').classList.remove('active');
+      document.getElementById('quiz').classList.add('active');
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const quiz = document.getElementById('quiz');
+      if (currentQuestion >= questions.length) return showResults();
+      const q = questions[currentQuestion];
+
+      const allTexts = [
+        [
+          "En el bar del Rosendo con el vermú.",
+          "Sacando la silla al fresco en la calle.",
+          "En la plaza Vieja, organizando la próxima fiesta.",
+          "En el bancal recogiendo higos y diciendo que son “cuatro”.",
+          "En la terraza del Mavi buscando cobertura."
+        ],
+        [
+          "Almuerzo, vino y charla con los de siempre.",
+          "Saludo a todo el mundo y me entero de media docena de cotilleos.",
+          "Llevo a mis colegas y compro queso y una camiseta de la peña.",
+          "Vendo tomates, pan de higo o ajos.",
+          "Me hago selfies con los puestos y subo stories con música flamenca random."
+        ],
+        [
+          "Como mi primo Paco, que se dejó la cadera ahí.",
+          "Ay madre… con lo fría que está esa agua, ¡están locos!",
+          "Me tiro detrás, grabándolo con el móvil.",
+          "Me río desde la orilla, yo ya me he tirado mil veces.",
+          "Lo grabo y le pongo de fondo “Aventura” en TikTok."
+        ],
+        [
+          "Un vino tinto con gaseosa, como siempre.",
+          "Agua con hielo y una rodaja de limón.",
+          "Calimocho o lo que repartan en la charanga.",
+          "Una cerveza fresca después de podar.",
+          "Aquarius, que mañana hay que subir vídeos al Insta."
+        ],
+        [
+          "Apunto a mi cuadrilla y pido que lo hagan en mi bar favorito.",
+          "Voy, pero solo si me avisa la vecina por la ventana.",
+          "¡Lo organizo yo! Y con premios y cartel con cliparts.",
+          "Paso, tengo que ir a la parcela.",
+          "Lo veo 5 minutos y luego me voy a dar una vuelta con el patinete."
+        ],
+        [
+          "Está en el Rosendo, fijo.",
+          "Yo lo vi antes con la Juani, ya te digo.",
+          "Es que el grupo de WhatsApp se ha liado otra vez.",
+          "Con tanto forastero es normal, si no conoce el pueblo...",
+          "A saber, si no tiene ni datos."
+        ],
+        [
+          "Ir al campo con la cuadrilla y no moverme del chiringuito.",
+          "Preparar tortilla, pan de pueblo y nevera con Tupperware.",
+          "Pintarme la cara, cantar y acabar con confeti en los zapatos.",
+          "Montar la carpa, madrugar y hacer paella.",
+          "Hacer vídeos de la peña y decir: “yo solo venía a mirar”."
+        ],
+        [
+          "Esto con un vino se habla mejor.",
+          "¿Esa no es la hija de la hermana del marido de la Puri?",
+          "¡Vamos que salimos en el programa de fiestas!",
+          "Antes todo esto eran almendros.",
+          "No hay 5G ni en la plaza, flipo."
+        ],
+        [
+          "En la terraza del bar viendo a todo el que pasa.",
+          "En la sombra con la radio puesta.",
+          "En la peña, preparando pancartas para agosto.",
+          "En el Aceniche, recogiendo uva a la fresca.",
+          "En casa, que hace calor, con el aire y TikTok."
+        ],
+        [
+          "El que dice “esto ya no es como antes” pero va todos los días.",
+          "El que va a misa, la procesión y luego comenta todo.",
+          "El que sale en la charanga, en la peña y si hace falta, en el desfile.",
+          "El que da melón y cerveza en la carpa de su finca.",
+          "El que intenta grabarlo todo pero siempre se queda sin batería."
+        ],
+        [
+          "El bar, cualquiera donde me conozcan.",
+          "La plaza del Viejo o cualquier calle donde se hable.",
+          "El escenario de las fiestas.",
+          "El camino del Romero, o el bancal de la abuela.",
+          "El único rincón donde carga el WiFi."
+        ],
+        [
+          "Verás, vienen a por vino.",
+          "Uy, a esos no los había visto nunca.",
+          "¡Más gente para el karaoke de esta noche!",
+          "No saben ni dónde están, pobres…",
+          "Bueno, si tienen coche, que me lleven a Murcia."
+        ],
+        [
+          "Tapeo y vino.",
+          "Hacer toñas y comentarlas con las vecinas.",
+          "Montar un escape room en la Casa de Cultura.",
+          "Pisar uvas y oler a campo.",
+          "Ver el atardecer… pero solo si hay señal."
+        ],
+        [
+          "Esto con toldo en la barra se arregla.",
+          "¡Ay, que se mojan las sillas!",
+          "¡A bailar bajo la lluvia, que no pare la música!",
+          "Buena pa’ los olivos.",
+          "Nooo, no he subido la story aún."
+        ],
+        [
+          "Donde hay bar, hay alegría.",
+          "Aquí nos conocemos todos, menos los que se van.",
+          "¡Sin peña no hay verano!",
+          "La tierra te lo da todo, si la entiendes.",
+          "Sin WiFi no hay paraíso."
+        ]
+      ];
+
+      quiz.innerHTML = `<h1>${q[0]}</h1><div class="answers"></div>`;
+      const answers = quiz.querySelector('.answers');
+      personalities.forEach((p, i) => {
+        const btn = document.createElement('button');
+        btn.textContent = allTexts[currentQuestion][i];
+        btn.onclick = () => {
+          personalities[q[i + 1]].count++;
+          currentQuestion++;
+          showQuestion();
+        };
+        answers.appendChild(btn);
+      });
+    }
+
+function showResults() {
+  function getPersonalityAnalysis(name) {
+    switch (name) {
+      case 'El del bar del Rosendo':
+        return 'Eres puro tapeo, conversación y sabiduría de barra. Conoces a todos por su apodo, sabes quién se casó con quién y cómo se hacía el vermú antes. Si Bullas tuviera un parlamento, tú estarías en la bancada de los sabios con servilleta al cuello. ¡Un clásico que nunca falla!';
+      case 'La señora del fresco':
+        return 'Tienes un máster en observación vecinal y una memoria de elefante. Sabes cuándo se casó la hija de la Paquita y cuál es la hora exacta para sacar la silla. Eres cultura oral, historia viva del pueblo. La plaza no sería la misma sin ti.';
+      case 'La reina de la peña':
+        return 'El alma de la fiesta. Sin ti no hay charanga, ni batucada, ni desfile decente. Sabes encender una plaza y levantar el ánimo de un barrio. Si el pregón lo dieras tú, ¡la gente saldría bailando!';
+      case 'El agricultor del Aceniche':
+        return 'Sabes cuándo va a llover con solo mirar las nubes. Eres paciencia, trabajo, conexión con la tierra y una enciclopedia de refranes. Representas lo más auténtico del pueblo: sabiduría sencilla y cariño por lo de siempre.';
+      case 'El adolescente sin cobertura':
+        return 'Eres juventud en estado puro: quejica pero con encanto. Criticas el pueblo pero lo echas de menos en cuanto estás fuera. Subes vídeos del Salto del Usero y haces que Bullas esté presente en TikTok, aunque sea sin WiFi.';
+      default:
+        return 'Eres bullero de corazón, y eso ya te hace parte importante del alma del pueblo.';
+    }
+  }
+
+  document.getElementById('quiz').classList.remove('active');
+  const result = document.getElementById('result');
+  result.classList.add('active');
+
+  const total = personalities.reduce((acc, p) => acc + p.count, 0);
+  const sorted = [...personalities].sort((a, b) => b.count - a.count);
+  const main = sorted[0];
+
+  let html = `<h1>¡Tu personaje más notable es: <strong>${main.name}</strong>!</h1>`;
+  html += `
+<div class="result-flex">
+  <div class="result-text">
+    <div class="personality">
+      <img src="${main.image}" alt="${main.name}">
+      <div>
+        <p><strong>Descripción:</strong> ${main.description}</p>
+        <p><em>${main.extra}</em></p>
+        <p style="
+          margin-top: 15px;
+          font-size: 0.95rem;
+          line-height: 1.6;
+          background: #f2f4ff;
+          padding: 15px;
+          border-left: 4px solid #27339E;
+          border-radius: 10px;
+        ">${getPersonalityAnalysis(main.name)}</p>
+      </div>
+    </div>
+  </div>
+  <div class="result-chart">
+    <canvas id="resultChart" width="300" height="300"></canvas>
+  </div>
+</div>
+`;
+
+
+
+  
+
+  // Añadimos el gráfico
+  html += `<canvas id="resultChart" width="400" height="400" style="margin-top: 30px;"></canvas>`;
+
+  result.innerHTML = html;
+
+  // Mostramos la gráfica con colores personalizados
+  const ctx = document.getElementById('resultChart').getContext('2d');
+new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: personalities.map(p => p.name),
+    datasets: [{
+      data: personalities.map(p => p.count),
+      backgroundColor: [
+  '#94B7E0', // Rosendo – azul claro
+  '#FF1D25', // Señora del fresco – rojo
+  '#94C9FF', // Reina de la peña – azul más claro
+  '#F2F4FF', // Agricultor – blanco suave
+  '#FFD2D2'  // Adolescente – rojo claro/rosado
+],
+
+      borderColor: '#ffffff',
+      borderWidth: 2
+    }]
+  },
+  options: {
+    plugins: {
+      legend: {
+        position: 'bottom'
+      },
+      datalabels: {
+        color: '#333',
+        font: {
+          weight: 'bold',
+          size: 14
+        },
+        formatter: (value, context) => {
+          const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+          const percent = ((value / total) * 100).toFixed(1);
+          return percent > 0 ? `${percent}%` : '';
+        }
+      }
+    },
+    animation: {
+      animateRotate: true,
+      duration: 1000,
+      easing: 'easeOutBounce'
+    }
+  },
+  plugins: [ChartDataLabels]
+});
+
+const toggleButton = document.getElementById('menu-toggle');
+  const menu = document.getElementById('menu');
+
+  toggleButton.addEventListener('click', () => {
+    menu.classList.toggle('active');
+  });
+}
+
+  </script>
+</cosa>
+<footer>
+  <div>
+    <h4>Proyecto</h4>
+    <a href="index.html">Inicio</a>
+    <a href="sobre_mi.html">Sobre mí</a>
+    <a href="bullometro.html">Bullómetro</a>
+    <a href="que_personaje_soy.html">¿Qué personaje sería?</a>
+    <a href="APP.html">Prueba la APP</a>
+  </div>
+  <div>
+    <h4>Angela Fernández</h4>
+    <a href="contacto.html">Contacto</a>
+    <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+  </div>
+  <div>
+    <h4>Créditos</h4>
+    <a href="agradecimientos.html">Agradecimientos</a>
+    <a href="#">React & Firebase</a>
+  </div>
+  <p>© 2025 Eventify | Hecho con ❤️ por Angela Fernández</p>
+</footer>
+
+
+  
+</html>

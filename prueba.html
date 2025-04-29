@@ -1,0 +1,171 @@
+<section class="sobre-mi-wrapper">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        scroll-behavior: smooth;
+        overflow: hidden;
+      }
+  
+      .sobre-mi-wrapper {
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        position: relative;
+      }
+  
+      .sobre-mi-bloque {
+        position: absolute;
+        top: 0;
+        left: 100vw;
+        height: 100vh;
+        width: 100vw;
+        padding: 60px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 50px;
+        opacity: 0;
+        transition: all 1s ease;
+        box-sizing: border-box;
+      }
+  
+      .sobre-mi-bloque.active {
+        left: 0;
+        opacity: 1;
+        z-index: 1;
+      }
+  
+      .sobre-mi-bloque:nth-of-type(even) {
+        background-color: #F9F9FF;
+      }
+      .sobre-mi-bloque:nth-of-type(odd) {
+        background-color: #EDEFFC;
+      }
+  
+      .sobre-mi-texto {
+        flex: 1 1 500px;
+        max-width: 600px;
+      }
+  
+      .sobre-mi-imagen {
+        flex: 0 0 320px;
+      }
+  
+      .sobre-mi-imagen img {
+        background: white;
+        padding: 12px;
+        border: 1px solid #ccc;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 6px;
+      }
+  
+      .foto-label {
+        text-align: center;
+        font-style: italic;
+        font-size: 0.9em;
+        color: #666;
+      }
+  
+      .cita {
+        font-style: italic;
+        color: #555;
+        margin-top: 20px;
+        padding-left: 10px;
+        border-left: 3px solid #FF1D25;
+      }
+  
+      footer {
+        background-color: #27339E;
+        color: white;
+        text-align: center;
+        padding: 40px 20px;
+        display: none;
+      }
+      footer.visible {
+        display: block;
+      }
+    </style>
+  
+    <div class="sobre-mi-bloque active">
+      <div class="sobre-mi-imagen">
+        <img src="imagenes/photo_presentacion.png" alt="Ángela retrato">
+        <figcaption class="foto-label">Ángela, 2025 🧑‍💻</figcaption>
+      </div>
+      <div class="sobre-mi-texto">
+        <h3 class="sobre-mi-titulo">Mi historia</h3>
+        <p class="firma">Hola, soy Ángela :)</p>
+        <p>Nací hará unos 22 años (aunque cada vez hace más) en Bullas, Murcia. No sabía si poner aquí mi currículum, pero, dada la temática de esta app, creo que tiene más sentido recordar mi vida.</p>
+        <p>En una de las clases de empresa de la uni me explicaron que, para vender un producto, hay que contar una historia. Y por eso, os regalo un resumen de la mía.</p>
+      </div>
+    </div>
+  
+    <div class="sobre-mi-bloque">
+      <div class="sobre-mi-imagen">
+        <img src="imagenes/photo_bullas.jpg" alt="Infancia en Bullas">
+        <figcaption class="foto-label">Bullas, 2004 📸</figcaption>
+      </div>
+      <div class="sobre-mi-texto">
+        <h3 class="sobre-mi-titulo">Mi historia empieza en Bullas</h3>
+        <p>Como buena persona de Bullas, me gusta el vino y la feria. Quizás antes era más de feria y ahora más de vino. Supongo que eso es madurar (o volverse un poco alcohólica, quién sabe).</p>
+        <p>Recuerdo que de pequeña me encantaba ir en bici por el pueblo, salir a la calle en busca de amigos sin avisar, sin planear nada. Me gustaba ir a casa de mi tía Esperanza a ver qué se cocía por allí.</p>
+        <p>Lo que más me gustaba era la espontaneidad. Curioso, porque entonces ni sabía lo que significaba esa palabra, y ahora sé que es lo que más echo de menos.</p>
+        <p class="cita">“A veces no sabes cómo se llama algo hasta que lo pierdes.”</p>
+      </div>
+    </div>
+  
+    <footer id="footer">
+      <h2>Gracias por leer 💙</h2>
+      <p>© 2025 Eventify | Hecho con ❤️ por Ángela Fernández</p>
+    </footer>
+  
+    <script>
+      const blocks = document.querySelectorAll('.sobre-mi-bloque');
+      const footer = document.getElementById('footer');
+      let current = 0;
+      let isScrolling = false;
+  
+      function showBlock(index) {
+        blocks.forEach((block, i) => {
+          block.classList.remove('active');
+          block.style.left = i < index ? '-100vw' : '100vw';
+          if (i === index) block.classList.add('active');
+        });
+        if (index === blocks.length) {
+          footer.classList.add('visible');
+        } else {
+          footer.classList.remove('visible');
+        }
+      }
+  
+      function scrollHandler(e) {
+        if (isScrolling) return;
+        isScrolling = true;
+        setTimeout(() => isScrolling = false, 1000);
+  
+        if (e.deltaY > 0) {
+          if (current < blocks.length) {
+            current++;
+            showBlock(current);
+          }
+        } else {
+          if (current > 0) {
+            current--;
+            showBlock(current);
+          }
+        }
+      }
+  
+      window.addEventListener('wheel', scrollHandler);
+
+
+      const toggleButton = document.getElementById('menu-toggle');
+  const menu = document.getElementById('menu');
+
+  toggleButton.addEventListener('click', () => {
+    menu.classList.toggle('active');
+  });
+    </script>
+  </section>
+  

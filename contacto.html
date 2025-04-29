@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contacto | Eventify</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="imagenes/eventify-logo.png">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      background-color: #F6F7FB;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+    }
+
+    .contacto {
+      padding: 100px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contacto h1 {
+      font-size: 36px;
+      color: #27339E;
+      margin-bottom: 10px;
+    }
+
+    .contacto p.descripcion {
+      font-size: 16.5px;
+      color: #333;
+      margin-bottom: 40px;
+    }
+
+    form {
+      background: #fefefe;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    input, textarea, select {
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    button {
+      background: linear-gradient(to right, #FF0000, #27339E);
+      color: white;
+      font-weight: bold;
+      padding: 14px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      width: fit-content;
+      align-self: center;
+      transition: transform 0.2s ease, background 0.4s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to right, #FF0000, #FF0000);
+    }
+
+    .alternativo {
+      margin-top: 30px;
+      font-size: 14.5px;
+      color: #444;
+    }
+
+    .alternativo a {
+      color: #FF0000;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    iframe {
+      margin-top: 40px;
+      border: 0;
+      border-radius: 12px;
+      width: 100%;
+      height: 200px;
+      animation: fadeMap 1s ease;
+    }
+
+    @keyframes fadeMap {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .firma {
+      margin-top: 40px;
+      font-size: 15px;
+      color: #555;
+    }
+
+    .firma span {
+      display: block;
+      margin-top: 10px;
+      font-weight: 500;
+      color: #27339E;
+    }
+
+    #mensaje-confirmacion {
+      display: none;
+      color: #27339E;
+      font-weight: 600;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .contacto {
+        padding: 60px 16px;
+      }
+
+      form {
+        padding: 30px 20px;
+      }
+
+      iframe {
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <img src="imagenes/eventify-logo_sin fondo.png" alt="Logo Eventify">
+      <button class="menu-toggle" id="menu-toggle">&#9776;</button> <!-- Icono menú -->
+      <ul id="menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="sobre_mi.html">Sobre mí</a></li>
+        <li><a href="bullometro.html">Bullómetro</a></li>
+        <li><a href="que_personaje_soy.html">¿Qué personaje sería?</a></li>
+        <li><a href="APP.html">Prueba la APP</a></li>
+        
+        <li><a href="agradecimientos.html">Agradecimientos</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="contacto">
+    <h1>Contacto</h1>
+    <p class="descripcion">
+      ¿Tienes alguna idea loca para Bullas o simplemente quieres decir hola?<br>
+      ¡Mándame un mensaje! Quién sabe, igual acabamos organizando un torneo de parchís intergaláctico.
+    </p>
+
+    <form>
+      <input type="text" placeholder="Nombre" required />
+      <input type="email" placeholder="Correo electrónico" required />
+      <select required>
+        <option disabled selected>¿Cómo conociste Eventify?</option>
+        <option>Por el pueblo</option>
+        <option>Instagram</option>
+        <option>Una amiga</option>
+        <option>Estaba aburrid@</option>
+      </select>
+      <textarea placeholder="Tu mensaje..." required></textarea>
+      <button type="submit">ENVIAR</button>
+    </form>
+
+    <p id="mensaje-confirmacion">¡Gracias por tu mensaje! Te responderé pronto 😊</p>
+
+    <p class="alternativo">
+      También puedes escribirme por <a href="#">Instagram</a> o mandarme una paloma mensajera. Pero el formulario es más rápido.
+    </p>
+
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.1709859843183!2d-1.6749983!3d38.0505588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd631d7b1df6f2f9%3A0x3ed5c326a4d9e14e!2sBullas%2C%20Murcia!5e0!3m2!1ses!2ses!4v1700000000000"
+      allowfullscreen="" loading="lazy">
+    </iframe>
+
+    <div class="firma" style="margin-top: 60px;">
+        <p style="font-size: 15.5px; color: #444;">
+          ¿Prefieres lo clásico? Siempre puedes mandarme un correo simpático:
+        </p>
+        <span style="display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; color: #27339E; font-weight: 600;">
+          <i class="fas fa-envelope"></i> angelaferupv@gmail.com
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; color: #27339E;">
+          <i class="fas fa-user-circle"></i> Angela Fernández
+        </span>
+      </div>
+      
+      
+  </section>
+
+  <footer>
+    <div>
+      <h4>Proyecto</h4>
+      <a href="index.html">Inicio</a>
+      <a href="sobre_mi.html">Sobre mí</a>
+      <a href="bullometro.html">Bullómetro</a>
+      <a href="que_personaje_soy.html">¿Qué personaje sería?</a>
+      <a href="APP.html">Prueba la APP</a>
+    </div>
+    <div>
+      <h4>Angela Fernández</h4>
+      <a href="contacto.html">Contacto</a>
+      <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+    </div>
+    <div>
+      <h4>Créditos</h4>
+      <a href="agradecimientos.html">Agradecimientos</a>
+      <a href="#">React & Firebase</a>
+    </div>
+    <p>© 2025 Eventify | Hecho con ❤️ por Angela Fernández</p>
+  </footer>
+
+  <script>
+    document.querySelector("form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      document.getElementById("mensaje-confirmacion").style.display = "block";
+      this.reset();
+    });
+
+    const toggleButton = document.getElementById('menu-toggle');
+    const menu = document.getElementById('menu');
+  
+    toggleButton.addEventListener('click', () => {
+      menu.classList.toggle('active');
+    });
+
+    
+  </script>
+</body>
+</html>

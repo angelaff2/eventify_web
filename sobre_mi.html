@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi historia | Eventify</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="imagenes/eventify-logo.png">
+
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600&family=Pacifico&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600&family=Pacifico&family=Poppins:wght@400;500&display=swap');
+  
+    html, body {
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+      font-family: 'Poppins', sans-serif;
+      background-color: #F9F9FF;
+      color: #333;
+    }
+
+    .sobre-mi-wrapper {
+      width: 100%;
+      padding: 0;
+
+    }
+
+    .sobre-mi-bloque {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 50px;
+      box-sizing: border-box;
+    }
+
+    .sobre-mi-bloque:nth-of-type(even) {
+      background-color: #F9F9FF;
+    }
+    .sobre-mi-bloque:nth-of-type(odd) {
+      background-color: #EDEFFC;
+    }
+
+    .sobre-mi-texto {
+      flex: 1 1 500px;
+      max-width: 600px;
+    }
+
+    .sobre-mi-imagen {
+      flex: 0 0 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .sobre-mi-imagen img {
+      padding: 12px;
+      
+      max-width: 100%;
+      height: auto;
+    }
+
+    .foto-label {
+      text-align: center;
+      font-style: italic;
+      font-size: 0.9em;
+      color: #666;
+      margin-top: 10px;
+    }
+
+    .cita {
+      font-style: italic;
+      color: #555;
+      margin-top: 20px;
+      padding-left: 10px;
+      border-left: 3px solid #FF1D25;
+    }
+
+    footer {
+      background-color: #27339E;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 60px;
+    }
+
+    .sobre-mi-titulo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2rem;
+    color: #27339E;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    position: relative;
+  }
+
+  .sobre-mi-titulo::after {
+    content: '';
+    width: 50px;
+    height: 4px;
+    background-color: #FF1D25;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    border-radius: 2px;
+  }
+  .firma {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.8rem;
+    color: #FF1D25;
+    margin-bottom: 25px;
+    display: block;
+    text-align: left;
+  }
+
+    @media (max-width: 768px) {
+      .sobre-mi-bloque {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .sobre-mi-texto, .sobre-mi-imagen {
+        flex: 1 1 100%;
+      }
+
+      .sobre-mi-imagen img {
+        max-width: 80%;
+      }
+    }
+    /* RESPONSIVE 👇 */
+    @media (max-width: 768px) {
+      .sobre-mi-wrapper {
+        overflow-x: hidden;
+        overflow-y: hidden;
+      }
+  
+      .sobre-mi-bloque {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding: 40px 20px;
+      }
+  
+      .sobre-mi-texto {
+        flex: none;
+        max-width: 90%;
+      }
+  
+      .sobre-mi-imagen {
+        flex: none;
+        max-width: 70%;
+        margin-bottom: 20px;
+      }
+  
+      .sobre-mi-imagen img {
+        width: 100%;
+        height: auto;
+      }
+  
+      .foto-label {
+        font-size: 0.8em;
+      }
+  
+      .sobre-mi-titulo {
+        font-size: 2rem;
+      }
+  
+      .firma {
+        font-size: 1.2rem;
+      }
+  
+      footer {
+        padding: 30px 20px;
+        font-size: 0.9em;
+      }
+    }
+
+    .intro-subtitulo {
+      font-size: 1.2rem;
+      color: #FF1D25;
+      font-weight: 700;
+      text-align: center;
+      margin: 10px 0 25px;
+      letter-spacing: 0.5px;
+    }
+
+    .slider-container {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slider-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 75%; /* Proporción 4:3 */
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.slider-wrapper img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  color: #27339E;
+  border: none;
+  font-size: 32px;
+  padding: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.slider-btn:hover {
+  color: #FF1D25;
+  transform: translateY(-50%) scale(1.2);
+}
+
+.slider-btn.left {
+  left: 10px;
+}
+
+.slider-btn.right {
+  right: 10px;
+}
+
+.foto-label {
+  font-style: italic;
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #555;
+}
+
+
+ </style>
+  
+  
+</head>
+<!-- Botón hamburguesa para móviles -->
+<nav class="navbar">
+  <div class="nav-container">
+    <img src="imagenes/eventify-logo_sin fondo.png" alt="Logo Eventify">
+    <button class="menu-toggle" id="menu-toggle">&#9776;</button> <!-- Icono menú -->
+    <ul id="menu">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="sobre_mi.html">Sobre mí</a></li>
+      <li><a href="bullometro.html">Bullómetro</a></li>
+      <li><a href="que_personaje_soy.html">¿Qué personaje sería?</a></li>
+      <li><a href="APP.html">Prueba la APP</a></li>
+      
+      <li><a href="agradecimientos.html">Agradecimientos</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<body>
+ 
+  <section class="sobre-mi-wrapper">
+
+    
+
+
+    <div class="sobre-mi-bloque" data-animate>
+      <div class="sobre-mi-imagen">
+        <img src="imagenes/unafotomia.png" alt="Ángela retrato">
+        <figcaption class="foto-label">Ángela, 2025 🧑‍💻</figcaption>
+      </div>
+      <div class="sobre-mi-texto">
+        <h2 class="intro-titulo">Mi historia</h2>
+      <p class="intro-subtitulo">Hola, soy Ángela :)</p>
+      <p class="intro-parrafo">
+        Nací hará unos 22 años (aunque cada vez hace más) en Bullas, Murcia. No sabía si poner aquí mi currículum, pero, dada la temática de esta app, creo que tiene más sentido recordar mi vida. Además ya que esto es para mi TFG, tendría sentido contaros un poco de mi vida estos 4 años. En una de las clases de empresa de la uni me explicaron que, para vender un producto, hay que contar una historia. Y por eso, os regalo un resumen de la mía.
+      </p>
+      </div>
+    </div>
+  
+    <!-- BLOQUE 1: INFANCIA Y ESPONTANEIDAD -->
+    <div class="sobre-mi-bloque" data-animate>
+      <div class="sobre-mi-imagen">
+        <img src="imagenes/yo_chiquita.png" alt="Infancia en Bullas" >
+        <figcaption class="foto-label">Bullas, 2009 📸</figcaption>
+      </div>
+      <div class="sobre-mi-texto">
+        <h3 class="sobre-mi-titulo">Mi historia empieza en Bullas</h3>
+        <p class="intro-parrafo">Como buena persona de Bullas, me gusta el vino y la feria. Quizás antes era más de feria y ahora más de vino. Supongo que eso es madurar (o volverse un poco alcohólica, quién sabe).</p>
+        <p class="intro-parrafo">Recuerdo que de pequeña me encantaba ir en bici por el pueblo, salir a la calle en busca de amigos sin avisar, sin planear nada. Me gustaba ir a casa de mi tía Esperanza a ver qué se cocía por allí.</p>
+        <p class="intro-parrafo">Lo que más me gustaba era la espontaneidad. Curioso, porque entonces ni sabía lo que significaba esa palabra, y ahora sé que es lo que más echo de menos.</p>
+        <p class="intro-parrafo">A veces no sabes cómo se llama algo hasta que lo pierdes. No sabes que eras espontánea hasta que un día empiezas a pensar demasiado antes de hacer cualquier cosa. Así fue como la perdí yo.</p>
+      </div>
+        </div>
+    </div>
+  
+  
+    <!-- BLOQUE 2: ADOLESCENCIA Y ELECCIÓN -->
+    <div class="sobre-mi-bloque" data-animate>
+      <div class="slider-container">
+        <div class="slider-wrapper">
+          <img id="slider-image-1" src="imagenes/sobre mi/adolescencia/aj adicciones 279.jpg" alt="Foto Adolescencia">
+          <button class="slider-btn right" onclick="nextSlide('1')">&#10095;</button>
+          <button class="slider-btn left" onclick="prevSlide('1')">&#10094;</button>
+
+          
+        </div>
+        <figcaption id="slider-caption-1" class="foto-label">Bullas, 2019 🧡</figcaption>
+      </div>
+      
+      <div class="sobre-mi-texto">
+        <h3 class="sobre-mi-titulo">Eventos canónicos</h3>
+        <p class="intro-parrafo">Estudié en el instituto durante seis años. Tuve momentos de todo tipo. Me gustaban las mates y la ciencia, a veces quería irme a casa, otras me reía mucho en clase… y otras simplemente me quedaba mirando un punto fijo sin saber qué iba a ser de mí. Pero la verdad es que estoy muy agradecida de la gente que conocí estos años, ya que muchos de ellos siguen estando en mi vida, o al menos en mi corazón.</p>
+        <p class="intro-parrafo"> Después de estos 6 años me tocó elegir un rumbo propio. El primero no fue muy acertado: me metí en Ingeniería Informática. Fue un año raro, además coincidió con el COVID. Pero tomé una buena decisión y cambié de carrera.</p>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+  
+  
+    <!-- BLOQUE 3: VALENCIA Y REENCUENTRO -->
+    <div class="sobre-mi-bloque" data-animate>
+      <div class="slider-container">
+        <div class="slider-wrapper">
+          <img id="slider-image-2" src="imagenes/sobre mi/1ano uni/IMG_20210510_133920.jpg" alt="Foto Primer Año Uni">
+          <button class="slider-btn right" onclick="nextSlide('2')">&#10095;</button>
+          <button class="slider-btn left" onclick="prevSlide('2')">&#10094;</button>
+        </div>
+        <figcaption id="slider-caption-2" class="foto-label">Valencia, 2021 ✨</figcaption>
+      </div>
+      
+      <div class="sobre-mi-texto">
+        <h3 class="sobre-mi-titulo">Nos alejamos del pueblo</h3>
+        <p class="intro-parrafo">Me mudé a Valencia para estudiar Tecnología Digital y Multimedia. Y así empezó lo que yo llamo la mejor época de mi vida.</p>
+        <p class="intro-parrafo">Quizás no lo hubiera sido tanto si no hubiese tenido una etapa anterior difícil. A veces, perder cosas te quita el miedo a perder. Porque cuando sientes que ya no tienes nada que perder, solo puedes ganar.</p>
+        <p class="intro-parrafo">Así me sentí cuando me mudé por primera vez a mi piso compartido en Valencia. Recuerdo que mis padres me dejaron allí, en un cuarto tan pequeño que podía ver todas las paredes a la vez.</p>
+        <p class="intro-parrafo">Y pensé: ¿qué coño hago aquí, con lo a gusto que estaba en casa? Pero tampoco tenía nada que perder así que bueno, me lancé a la piscina.</p>
+      </div>
+    </div>
+    
+    
+  
+  
+    <div class="sobre-mi-bloque reverse" data-animate>
+      <div class="slider-container">
+        <div class="slider-wrapper">
+          <img id="slider-image-3" src="imagenes/sobre mi/2ano uni/aa2 (1).png" alt="Vida en Valencia Año 2">
+          <button class="slider-btn right" onclick="nextSlide('3')">&#10095;</button>
+          <button class="slider-btn left" onclick="prevSlide('3')">&#10094;</button>
+        </div>
+        <figcaption id="slider-caption-3" class="foto-label">Excursión a Chulilla 🌄</figcaption>
+      </div>
+    
+      <div class="sobre-mi-texto">
+        <h3 class="sobre-mi-titulo">Empezamos el prime</h3>
+        <p class="intro-parrafo">Empezaron las clases y, poco a poco, todo empezó a tener más sentido. Personas de otras partes de España se convirtieron en mis amigos. Espacios que antes ni existían en mi mapa mental se transformaron en “nuestros lugares”.</p>
+        <p class="intro-parrafo">Durante esos años hice de todo: salí de fiesta, compartí piso, cociné muchas cenas con amigos, me reí muchísimo en clase, viajé por España y también fuera.</p>
+        <p class="intro-parrafo">Y, sin darme cuenta, empecé a vivir momentos que no quería que se acabaran. Momentos simples, cotidianos, imperfectos… pero llenos de vida.</p>
+      </div>
+    </div>
+    
+
+
+
+    <div class="sobre-mi-bloque" data-animate>
+      <div class="slider-container">
+        <div class="slider-wrapper">
+          <img id="slider-image-4" src="imagenes/sobre mi/3ano uni inter/3c4253d8-861a-43ba-b5da-5458495ea538.jpg" alt="Tercer Año">
+          <button class="slider-btn right" onclick="nextSlide('4')">&#10095;</button>
+          <button class="slider-btn left" onclick="prevSlide('4')">&#10094;</button>
+        </div>
+        <figcaption id="slider-caption-4" class="foto-label">Viaje a Varsovia 🇵🇱</figcaption>
+      </div>
+    
+      <div class="sobre-mi-texto">
+        <h3 class="sobre-mi-titulo">Nos ponemos reflexivos</h3>
+        <p class="intro-parrafo">Y entonces entendí algo que me acompaña desde entonces:</p>
+        <p class="intro-parrafo">Crecer es perder cosas que dabas por hecho que siempre estarían ahí, y empezar a ponerles nombre cuando ya no las tienes. Pero también es ganar cosas que nunca pensaste que te pasarían.</p>
+        <p class="intro-parrafo">Y a veces, incluso, empezar a echarlas de menos antes de que se acaben, porque te das cuenta de que nada es para siempre.</p>
+        <p class="intro-parrafo">Y en ese instante, mientras todo ocurre, mientras todo parece fluir sin que lo controles del todo, sientes algo muy parecido a la felicidad.</p>
+      </div>
+    </div>
+    
+
+    <div class="sobre-mi-bloque" data-animate>
+      <div class="slider-container">
+        <div class="slider-wrapper">
+          <img id="slider-image-5" src="imagenes/sobre mi/reflexivos uni/7f11dbf3-9252-46c1-a753-81896251b0e6.jpg" alt="Cosas">
+          <button class="slider-btn right" onclick="nextSlide('5')">&#10095;</button>
+          <button class="slider-btn left" onclick="prevSlide('5')">&#10094;</button>
+        </div>
+        <figcaption id="slider-caption-5" class="foto-label">Viaje a Varsovia 🇵🇱</figcaption>
+      </div>
+  <div class="sobre-mi-texto">
+    <h3 class="sobre-mi-titulo">Cosas randoms</h3>
+    <p class="intro-parrafo">Después vinieron más pasos, más saltos. Creé el club de country en mi universidad, me metí a hacer running como si de una secta se tratase, aproveché todas las oportunidades de intercambio que me ofrecía la uni, me fui a Túnez a hacer unas prácticas en verano, luego vinieron dos intercambios más: uno en Berlín y otro en Varsovia, trabajé como becaria en la oficina internacional…</p>
+    <p class="intro-parrafo">Y me di cuenta de que podía lograr más cosas de las que imaginaba.</p>
+  </div>
+</div>
+
+<div class="sobre-mi-bloque" data-animate>
+  <div class="slider-container">
+    <div class="slider-wrapper">
+      <img id="slider-image-6" src="imagenes/sobre mi/reflexivos uni/7f11dbf3-9252-46c1-a753-81896251b0e6.jpg" alt="Taiwan">
+      <button class="slider-btn right" onclick="nextSlide('6')">&#10095;</button>
+      <button class="slider-btn left" onclick="prevSlide('6')">&#10094;</button>
+    </div>
+    <figcaption id="slider-caption-6" class="foto-label">Taiwann</figcaption>
+  </div>
+  <div class="sobre-mi-texto">
+    <h3 class="sobre-mi-titulo">Y de repente me piro más lejos</h3>
+    <p class="intro-parrafo">Mi último año de universidad lo terminé en Taiwán, viviendo un año de intercambio que, sinceramente, ni siquiera imaginaba cuando empecé la carrera.</p>
+    <p class="intro-parrafo">A veces la vida te lleva a sitios que no estaban en el mapa, pero que acaban marcando un antes y un después.</p>
+    <p class="intro-parrafo">Me fui sola, con miedo, con ilusión… con una mezcla de todo. Pero bueno, la vida es solo una y había que ponerle ganas y al final, como en Valencia, encontré de nuevo mi lugar y un montón de aprendizajes más.</p>
+  </div>
+</div>
+  
+<div class="sobre-mi-bloque" data-animate>
+  <div class="slider-container">
+    <div class="slider-wrapper">
+      <img id="slider-image-7" src="imagenes/sobre mi/taiwan2/69ddb57a-ecef-4af5-9f4f-47c648a37655.jpg" alt="Taiwann">
+      <button class="slider-btn right" onclick="nextSlide('7')">&#10095;</button>
+      <button class="slider-btn left" onclick="prevSlide('7')">&#10094;</button>
+    </div>
+    <figcaption id="slider-caption-7" class="foto-label">Taiwann</figcaption>
+  </div>
+  <div class="sobre-mi-texto">
+    <h3 class="sobre-mi-titulo">Reflexión sobre vivir fuera</h3>
+    <p class="intro-parrafo">Taiwán me dio perspectiva. Allí me vi desde fuera: vi mi pueblo con otros ojos, mi país, mi forma de vivir.</p>
+    <p class="intro-parrafo">Y entre todo eso, empecé a pensar en cómo me gustaría que fueran las cosas. En lo mucho que valoraba la conexión con las personas, el compartir habilidades, el ayudarse sin esperar nada a cambio.</p>
+    <p class="intro-parrafo">Me di cuenta de que, en un mundo tan conectado, muchas veces lo que nos falta es precisamente eso: conexión real.</p>
+  </div>
+</div>
+
+<div class="sobre-mi-bloque" data-animate>
+  <div class="sobre-mi-imagen">
+    <img src="imagenes/sobre mi/bullas/patrimonio5.jpg" alt="Reflexión final" >
+    <figcaption class="foto-label">Bullas en su esplendor</figcaption>
+  </div>
+  <div class="sobre-mi-texto">
+    <h3 class="sobre-mi-titulo">Y ahí vuelve a empezar todo</h3>
+    <p class="intro-parrafo">Porque al final, de eso va todo esto. De volver a lo cercano, a lo sencillo, a lo que nos hace sentir que formamos parte de algo. De recuperar, aunque sea de otra manera, esa magia de cuando eras niña y bastaba con salir a la calle para que pasara algo.</p>
+    <p class="intro-parrafo">Sí, hoy tenemos pantallas, notificaciones, apps. Pero también tenemos la oportunidad de usarlas para algo más. Para darle una nueva forma a la espontaneidad, aunque sea distinta, aunque haya que hacer clic antes de salir de casa. Para actualizar lo de siempre, sin que pierda su esencia.</p>
+    <p class="intro-parrafo">Porque lo importante no es que sea perfecto, sino que siga siendo real.</p>
+    <p class="cita">“¿Te apetece hacer algo?”<br>“Sí.”<br>Y ahí, justo ahí, vuelva a empezar todo.</p>
+  </div>
+</div>
+  </section>
+  
+  
+
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    });
+
+    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+  </script>
+</body>
+
+<footer>
+  <div>
+    <h4>Proyecto</h4>
+    <a href="index.html">Inicio</a>
+    <a href="sobre_mi.html">Sobre mí</a>
+    <a href="bullometro.html">Bullómetro</a>
+    <a href="que_personaje_soy.html">¿Qué personaje sería?</a>
+    <a href="APP.html">Prueba la APP</a>
+  </div>
+  <div>
+    <h4>Angela Fernández</h4>
+    <a href="contacto.html">Contacto</a>
+    <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+  </div>
+  <div>
+    <h4>Créditos</h4>
+    <a href="agradecimientos.html">Agradecimientos</a>
+    <a href="#">React & Firebase</a>
+  </div>
+  <p>© 2025 Eventify | Hecho con ❤️ por Angela Fernández</p>
+</footer>
+
+
+
+<script>
+  const toggleButton = document.getElementById('menu-toggle');
+  const menu = document.getElementById('menu');
+
+  toggleButton.addEventListener('click', () => {
+    menu.classList.toggle('active');
+  });
+
+
+
+  const galleries = {
+  1: [
+    { src: "imagenes/sobre mi/adolescencia/aj adicciones 279.jpg", caption: "Primeras escapadas" },
+    { src: "imagenes/sobre mi/adolescencia/eventos canonicos_1.jpg", caption: "En clase" },
+    { src: "imagenes/sobre mi/adolescencia/IMG-20190712-WA0004 (1).jpg", caption: "Plaza de verano" },
+    { src: "imagenes/sobre mi/adolescencia/IMG-20190915-WA0006 (1).jpg", caption: "Noche de amigos" },
+    { src: "imagenes/sobre mi/adolescencia/IMG-20191009-WA0027.jpg", caption: "Centro de Bullas" },
+    { src: "imagenes/sobre mi/adolescencia/IMG-20200905-WA0013.jpg", caption: "Pandemia pero juntos" },
+    { src: "imagenes/sobre mi/adolescencia/IMG-20200920-WA0011.jpg", caption: "Últimos veranos" }
+  ],
+  2: [
+    { src: "imagenes/sobre mi/1ano uni/IMG_20210510_133920.jpg", caption: "Primer año de pandemia" },
+    { src: "imagenes/sobre mi/1ano uni/IMG_20210921_002955.jpg", caption: "Selfie en mi habitacion de 1m2" },
+    { src: "imagenes/sobre mi/1ano uni/IMG_20221104_204550.jpg", caption: "Conciertillo" },
+    { src: "imagenes/sobre mi/1ano uni/IMG_20221119_161256.jpg", caption: "Amistades nuevas" },
+    { src: "imagenes/sobre mi/1ano uni/IMG-20220304-WA0031.jpg", caption: "Cena elegante" },
+    { src: "imagenes/sobre mi/1ano uni/IMG-20220407-WA0018.jpg", caption: "Explorando Valencia" },
+    { src: "imagenes/sobre mi/1ano uni/primera hab.jpg", caption: "Mi primer cuarto" }
+  ],
+
+  3: [
+  { src: "imagenes/sobre mi/2ano uni/aa2 (1).png", caption: "Excursión a Chulilla" },
+  { src: "imagenes/sobre mi/2ano uni/CC4EF444-5BA1-44C4-9D6F-365144D898C5.JPG", caption: "Nieve en Teruel" },
+  { src: "imagenes/sobre mi/2ano uni/fcb665f0-482e-4527-ba2c-ac069c219eb2.jpg", caption: "Tarde en la playa" },
+  { src: "imagenes/sobre mi/2ano uni/IMG_20221031_214920.jpg", caption: "Halloween" },
+  { src: "imagenes/sobre mi/2ano uni/IMG-20220417-WA0018.jpg", caption: "Los chavales" }
+],
+4: [
+  { src: "imagenes/sobre mi/3ano uni inter/3c4253d8-861a-43ba-b5da-5458495ea538.jpg", caption: "Quedada en el campo" },
+  { src: "imagenes/sobre mi/3ano uni inter/43fe9244-468d-4b24-968f-45f820089fb6.jpg", caption: "Los chavales por Madrid 1" },
+  { src: "imagenes/sobre mi/3ano uni inter/4151c658-242d-4e3d-927c-b08cd4665e8d.jpg", caption: "Corriendo un poco" },
+  { src: "imagenes/sobre mi/3ano uni inter/07345706-30B7-48C7-8178-3E8EEA206C12.jpg", caption: "Explorando Teruel" },
+  { src: "imagenes/sobre mi/3ano uni inter/20240808_211150.jpg", caption: "Visitando Galicia" },
+  { src: "imagenes/sobre mi/3ano uni inter/d1fb1b1b-bc34-4bcd-ace3-c8da99132ed9.jpg", caption: "Los chavales por Madrid 2" },
+  { src: "imagenes/sobre mi/3ano uni inter/P3220994.jpg", caption: "Momentos para el recuerdo" }
+],
+5: [
+  { src: "imagenes/sobre mi/reflexivos uni/7f11dbf3-9252-46c1-a753-81896251b0e6.jpg", caption: "Sesioneo en la Uni" },
+  { src: "imagenes/sobre mi/reflexivos uni/75a435d6-5508-44c7-8cc0-aa44d2e51409.jpg", caption: "De mi etapa runner" },
+  { src: "imagenes/sobre mi/reflexivos uni/20240316_161843.jpg", caption: "En Varsovia de chill" },
+  { src: "imagenes/sobre mi/reflexivos uni/e65b31c8-9dd0-4145-a567-47fdad32fefc.jpg", caption: "Otra carrera" },
+  { src: "imagenes/sobre mi/reflexivos uni/f42e9026-666a-4364-afdf-c4e6cec87ab8.jpg", caption: "En Túnez con los chavales" },
+  { src: "imagenes/sobre mi/reflexivos uni/IMG_2184.jpg", caption: "Dos palabras: Galicia Rueda" },
+  { src: "imagenes/sobre mi/reflexivos uni/IMG_4031 Copy.JPG", caption: "Cena de las importantes" },
+  { src: "imagenes/sobre mi/reflexivos uni/IMG_4107.jpg", caption: "Naturaleza y personas que cuidan" },
+  { src: "imagenes/sobre mi/reflexivos uni/IMG_6948.jpg", caption: "Grabando un podcast sobre el country" },
+  { src: "imagenes/sobre mi/reflexivos uni/P5010037.jpg", caption: "El peñón y la promesa de verano" },
+  { src: "imagenes/sobre mi/reflexivos uni/P5010261.jpg", caption: "Color, familia, viaje " },
+  { src: "imagenes/sobre mi/reflexivos uni/P5230194.jpg", caption: "Retrato de lo cotidiano" },
+  { src: "imagenes/sobre mi/reflexivos uni/PXL_20240320_194111176.jpg", caption: "Luces, amigos y noche en Budapest" }
+],
+6: [
+    { src: "imagenes/sobre mi/taiwan1/G0429241.JPG", caption: "Haciendo snorkeling" },
+    { src: "imagenes/sobre mi/taiwan1/IMG_0128.JPG", caption: "Conquistando Vietnam" },
+    { src: "imagenes/sobre mi/taiwan1/IMG_7272.jpg", caption: "Selfie feliz en el coche con Salma" },
+    { src: "imagenes/sobre mi/taiwan1/IMG_7401.JPG", caption: "Esperando el vuelo" },
+    { src: "imagenes/sobre mi/taiwan1/IMG_7439.JPG", caption: "En el prime" },
+    { src: "imagenes/sobre mi/taiwan1/IMG_7505.JPG", caption: "Día de bikini y amistad" },
+    { src: "imagenes/sobre mi/taiwan1/IMG_8043.jpg", caption: "Templo y respeto" },
+    { src: "imagenes/sobre mi/taiwan1/IMG_8402.JPG", caption: "Luces en la noche asiática" },
+    { src: "imagenes/sobre mi/taiwan1/IMG_8531.JPG", caption: "Callejones con sabor" },
+    { src: "imagenes/sobre mi/taiwan1/IMG_8643.JPG", caption: "Cascada de fondo, amistad de frente" },
+    { src: "imagenes/sobre mi/taiwan1/IMG_8986.JPG", caption: "Posado de oro ante Buda" }
+  ],
+  7: [
+  { src: "imagenes/sobre mi/taiwan2/69ddb57a-ecef-4af5-9f4f-47c648a37655.jpg", caption: "En la bolera con los panas" },
+  { src: "imagenes/sobre mi/taiwan2/091b28ba-5307-4ae6-9f32-caf5d271b836.jpg", caption: "Palace Museum" },
+  { src: "imagenes/sobre mi/taiwan2/318deabb-6e1c-403e-9864-6a67dd35963a.jpg", caption: "Sun moon lake" },
+  { src: "imagenes/sobre mi/taiwan2/be0e7330-6d9c-4aeb-bc20-988d1709ed29.jpg", caption: "En un bar en Shanghai" },
+  { src: "imagenes/sobre mi/taiwan2/R0009286.JPG", caption: "Juifen con los student budies" },
+  { src: "imagenes/sobre mi/taiwan2/R0009324.jpeg", caption: "Juifen 2" }
+]
+
+
+
+
+
+};
+
+// Indices actuales para cada galería
+const galleryIndices = { 1: 0, 2: 0 , 3:0, 4:0, 5:0,6:0, 7:0};
+
+// Mostrar slide
+function showSlide(galleryId, index) {
+  const gallery = galleries[galleryId];
+  if (!gallery) return;
+
+  if (index < 0) index = gallery.length - 1;
+  if (index >= gallery.length) index = 0;
+
+  galleryIndices[galleryId] = index;
+
+  document.getElementById(`slider-image-${galleryId}`).src = gallery[index].src;
+  document.getElementById(`slider-caption-${galleryId}`).textContent = gallery[index].caption;
+}
+
+// Siguiente
+function nextSlide(galleryId) {
+  showSlide(galleryId, galleryIndices[galleryId] + 1);
+}
+
+// Anterior
+function prevSlide(galleryId) {
+  showSlide(galleryId, galleryIndices[galleryId] - 1);
+}
+
+// Iniciar en el primero de cada uno
+showSlide(1, 0);
+showSlide(2, 0);
+showSlide(3, 0);
+showSlide(4, 0);
+showSlide(5, 0);
+showSlide(6, 0);
+showSlide(7, 0);
+
+
+</script>
+
+  
+
+
+</html>

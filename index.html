@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eventify | Conectando Bullas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" href="imagenes/eventify-logo.png">
+
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <img src="imagenes/eventify-logo_sin fondo.png" alt="Logo Eventify">
+      <button class="menu-toggle" id="menu-toggle">&#9776;</button> <!-- Icono menú -->
+      <ul id="menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="sobre_mi.html">Sobre mí</a></li>
+        <li><a href="bullometro.html">Bullómetro</a></li>
+        <li><a href="que_personaje_soy.html">¿Qué personaje sería?</a></li>
+        <li><a href="APP.html">Prueba la APP</a></li>
+        
+        <li><a href="agradecimientos.html">Agradecimientos</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header id="inicio" class="hero">
+    <div class="hero-text">
+      <h1>Eventify: Conectando Bullas</h1>
+      <p>Redescubre tu pueblo a través de eventos, habilidades y encuentros entre vecinos.</p>
+      <a href="#que-es" class="btn-primary">Prueba la DEMO</a>
+    </div>
+    <div class="hero-image">
+      <img src="imagenes/homepage.jpg" alt="App Eventify" />
+    </div>
+  </header>
+
+  <section id="que-es" class="section light">
+    <div class="content-center">
+      <h2>¿Qué es Eventify?</h2>
+      <div class="que-es-content">
+        <div class="que-es-texto">
+          <p><strong>Eventify no es solo una app</strong>. Es un latido. Un intento de abrazar todo lo que un día dimos por hecho: las calles que nos vieron crecer, las plazas donde aprendimos a mirar, las voces que llenaban las tardes de verano sin necesidad de ningún plan.</p>
+  
+          <p>Es una respuesta a esa punzada en el pecho cuando regresas a Bullas y ves que todo sigue igual... pero tú ya no. Una promesa de que, aunque el tiempo pase y el mundo cambie, aquí seguimos teniendo algo que no se puede copiar ni vender: <strong>comunidad, memoria, raíces</strong>.</p>
+  
+          <p>Eventify sueña con una Bullas donde <strong>aprender a bordar</strong>, <strong>tocar la guitarra</strong> o <strong>salir a caminar al monte</strong> no sea un evento extraordinario, sino parte de la vida diaria. Donde los talentos de nuestros vecinos no se pierdan en el olvido, sino que florezcan en cada calle, en cada rincón, en cada sonrisa compartida sin pedir nada a cambio.</p>
+  
+          <p>Porque en cada receta que no se enseña, en cada historia que no se cuenta, en cada habilidad que nadie sabe que existe, se esconde un pedazo de Bullas que estamos dejando escapar. Y esta app es, simplemente, <strong>una red para que no se nos escape nada más</strong>.</p>
+  
+          <p>Eventify es esa mano tendida, ese “¿te apetece?” de toda la vida. Es salir a la calle sabiendo que algo bueno puede pasar. Es recordar que no estamos solos, ni aquí, ni ahora. Que seguimos siendo pueblo. Que seguimos siendo nosotros.</p>
+  
+          <p><strong>Porque Bullas no es un sitio. Bullas es la gente que, sin saberlo, nos enseña cada día a volver a empezar.</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  
+  
+
+  <section id="funcionalidades" class="section light">
+    <h2>Funcionalidades principales</h2>
+    <div class="carousel-wrapper">
+      <button class="arrow left"><i class="fas fa-chevron-left"></i></button>
+      
+      <div class="carousel-track-container">
+        <div class="carousel-track">
+          <div class="card-slide">
+            <img src="imagenes/crear_evento.jpg" alt="Evento">
+            <h3>Organiza eventos</h3>
+            <p>Crea talleres y actividades abiertas al pueblo.</p>
+          </div>
+          <div class="card-slide">
+            <img src="imagenes/ejemplo_grupo.jpg" alt="Grupo">
+            <h3>Únete a grupos</h3>
+            <p>Conecta con personas que compartan tus intereses.</p>
+          </div>
+          <div class="card-slide">
+            <img src="imagenes/perfil.jpg" alt="Perfil">
+            <h3>Perfil personalizado</h3>
+            <p>Define tu identidad y muestra tus habilidades.</p>
+          </div>
+          <div class="card-slide">
+            <img src="imagenes/mapa.jpg" alt="Mapa">
+            <h3>Explora el mapa</h3>
+            <p>Descubre eventos, talleres y rincones locales.</p>
+          </div>
+          <div class="card-slide">
+            <img src="imagenes/ejemplo_ayuda.jpg" alt="Ayuda">
+            <h3>Solicita ayuda</h3>
+            <p>Pide o da una mano a alguien del pueblo.</p>
+          </div>
+          <div class="card-slide">
+            <img src="imagenes/chat_mensajes.jpg" alt="Chat">
+            <h3>Chatea con la comunidad</h3>
+            <p>Habla directamente con vecinos de Bullas.</p>
+          </div>
+        </div>
+      </div>
+  
+      <button class="arrow right"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </section>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  <section id="como-usar" class="section light">
+    <h2>¿Cómo usar Eventify?</h2>
+    <p>Sigue estos pasos para comenzar a disfrutar de tu comunidad:</p>
+  
+    <div class="timeline-vertical">
+  
+      <div class="timeline-step" data-aos="fade-up">
+        <div class="timeline-img">
+          <img src="imagenes/Registro_relleno.jpg" alt="Registro" />
+        </div>
+        <div class="timeline-text">
+          <h3><i class="fas fa-user-plus"></i> 1. Regístrate</h3>
+          <p>Crea tu cuenta y cuéntanos quién eres. ¡Tu historia empieza aquí!</p>
+          <span class="mini-user">🌟 Rosa se registró y descubrió talleres de bordado en su barrio.</span>
+        </div>
+      </div>
+  
+      <div class="timeline-step reverse" data-aos="fade-up">
+        <div class="timeline-img">
+          <img src="imagenes/perfil.jpg" alt="Perfil" />
+        </div>
+        <div class="timeline-text">
+          <h3><i class="fas fa-id-badge"></i> 2. Personaliza tu perfil</h3>
+          <p>Indica tus intereses y habilidades. Así Eventify puede conectarte mejor.</p>
+          <span class="mini-user">🧑‍🎨 Juan activó su perfil y encontró un grupo de pintura local.</span>
+        </div>
+      </div>
+  
+      <div class="timeline-step" data-aos="fade-up">
+        <div class="timeline-img">
+          <img src="imagenes/mapa_con_detalle.jpg" alt="Mapa" />
+        </div>
+        <div class="timeline-text">
+          <h3><i class="fas fa-map-marked-alt"></i> 3. Explora el mapa</h3>
+          <p>Descubre eventos, actividades y lugares en Bullas con un solo clic.</p>
+        </div>
+      </div>
+  
+      <div class="timeline-step reverse" data-aos="fade-up">
+        <div class="timeline-img">
+          <img src="imagenes/Crear_evento.jpg" alt="Crear evento" />
+        </div>
+        <div class="timeline-text">
+          <h3><i class="fas fa-calendar-plus"></i> 4. Crea o únete a eventos</h3>
+          <p>Organiza tu propio taller o apúntate al de otro vecino.</p>
+        </div>
+      </div>
+  
+      <div class="timeline-step" data-aos="fade-up">
+        <div class="timeline-img">
+          <img src="imagenes/chat_mensajes.jpg" alt="Chat" />
+        </div>
+        <div class="timeline-text">
+          <h3><i class="fas fa-comments"></i> 5. Conecta y chatea</h3>
+          <p>Envía mensajes y crea comunidad con gente de tu zona.</p>
+        </div>
+      </div>
+  
+    </div>
+  </section>
+  
+  
+  
+
+  <section id="por-que-eventify" class="section dark">
+    <h2>¿Por qué Eventify?</h2>
+    <p class="intro-parrafo grande">Porque en los pueblos hay talento, historias y cultura… solo que nadie se entera.</p>
+    <div class="bloque wide destacado">
+        <i class="fas fa-chalkboard-teacher icon"></i>
+        <h3>No es falta de talento, es falta de puente</h3>
+        <p>
+            No es que Bullas no tenga qué ofrecer - tiene tanto que a veces duele ver cómo se desperdicia. Cada casa guarda un maestro potencial, cada esquina una clase espontánea, cada negocio un centro cultural esperando florecer. 
+          <br><br>
+          El problema es que seguimos dependiendo del boca a boca, de encuentros casuales en la plaza y de conversaciones que se pierden en el aire del Carrascalejo. El que quiere aprender fotografía no sabe a quién acudir. El que domina un oficio no tiene cómo ofrecerlo. Las iniciativas se esfuman, invisibles.
+          <br><br>
+          El problema no es la falta de ganas, sino de herramientas. <strong>Eventify nace como el puente que conecta a quienes saben con quienes quieren aprender</strong>. Una red que transforma potencial en acción.
+        </p>
+      </div>
+      
+  
+    <!-- Google Map visual -->
+    <div class="google-mapa">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.1709859843183!2d-1.6749983!3d38.0505588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd631d7b1df6f2f9%3A0x3ed5c326a4d9e14e!2sBullas%2C%20Murcia!5e0!3m2!1ses!2ses!4v1700000000000"
+        width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <p class="mapa-comentario">Aquí está el epicentro de la innovación rural. También venden buen vino. Coincidencia, no lo creo.</p>
+    </div>
+  
+    <!-- Grid tipo mosaico con iconos -->
+    <div class="porque-mosaico">
+      <div class="bloque big">
+        <i class="fas fa-book-open icon"></i>
+        <h3>Saberes que se están perdiendo</h3>
+        <p>Pan casero, bordado, idiomas… Todo eso que nadie pide, pero todos querrían aprender si lo conocieran.</p>
+      </div>
+      <div class="bloque tall">
+        <i class="fas fa-user-slash icon"></i>
+        <h3>Talento oculto</h3>
+        <p>Si no pasas por la plaza a la hora justa, parece que no existes.</p>
+      </div>
+      <div class="bloque">
+        <i class="fas fa-mobile-alt icon"></i>
+        <h3>Redes, pero sin red</h3>
+        <p>Publicar en Instagram está bien. Pero, ¿sabías que tu vecina también toca el violín?</p>
+      </div>
+      <div class="bloque wide">
+        <i class="fas fa-map-marker-alt icon"></i>
+        <h3>Espacios con potencial</h3>
+        <p>Una plaza, una biblioteca o un bar. Todo puede ser un aula. Solo falta una app.</p>
+      </div>
+      <div class="bloque">
+        <i class="fas fa-users icon"></i>
+        <h3>Ganas hay, pero sin puente</h3>
+        <p>Hay quien quiere enseñar, hay quien quiere aprender. Pero entre ellos: el vacío digital.</p>
+      </div>
+      <div class="bloque">
+        <i class="fas fa-bolt icon"></i>
+        <h3>Por eso, Eventify</h3>
+        <p>Para que todo eso que ya existe, por fin se encuentre. Sin complicaciones.</p>
+      </div>
+    </div>
+  
+    <!-- Interacción divertida -->
+    <div class="interactivo-identidad">
+      <h4>¿Con qué te identificas más?</h4>
+      <div class="opciones">
+        <button onclick="responder('taller')">Montar un taller épico</button>
+        <button onclick="responder('aprender')">Aprender algo sin anuncios de YouTube</button>
+        <button onclick="responder('mirar')">Solo vengo a mirar, como en la feria</button>
+      </div>
+      <p id="respuesta-interactiva" class="respuesta-sarcastica">Haz clic en una opción, valiente.</p>
+    </div>
+  </section>
+  
+  
+  
+  
+  <section id="roadmap" class="section light">
+    <h2>🚀 Roadmap de desarrollo</h2>
+    <div class="timeline-container">
+  
+      <div class="timeline-item left">
+        <div class="content-box">
+          <h3>🧠 Fase 1: Idea & Planificación</h3>
+          <ul>
+            <li><strong>Propósito:</strong> Conectar personas de una comunidad.</li>
+            <li><strong>Stack:</strong> React Native (Expo), Firebase, Maps.</li>
+          </ul>
+        </div>
+      </div>
+  
+      <div class="timeline-item right">
+        <div class="content-box">
+          <h3>🔐 Fase 2: Registro & Autenticación</h3>
+          <ul>
+            <li>Login por correo, creación de perfil con intereses y ubicación.</li>
+          </ul>
+        </div>
+      </div>
+  
+      <div class="timeline-item left">
+        <div class="content-box">
+          <h3>🎉 Fase 3: Gestión de Eventos</h3>
+          <ul>
+            <li>Crear, explorar y guardar eventos por tipo.</li>
+          </ul>
+        </div>
+      </div>
+  
+      <div class="timeline-item right">
+        <div class="content-box">
+          <h3>🗺️ Fase 4: Mapa & Lugares</h3>
+          <ul>
+            <li>Ver mapa general, añadir lugares y filtros.</li>
+          </ul>
+        </div>
+      </div>
+  
+      <div class="timeline-item left">
+        <div class="content-box">
+          <h3>🙋‍♀️ Fase 5: Usuarios & Perfiles</h3>
+          <ul>
+            <li>Ver otros perfiles, guardar habilidades y eventos propios.</li>
+          </ul>
+        </div>
+      </div>
+  
+      <div class="timeline-item right">
+        <div class="content-box">
+          <h3>🎨 Fase 6: Diseño y UX</h3>
+          <ul>
+            <li>Estilo limpio, accesible, colores azul-rojo-blanco.</li>
+          </ul>
+        </div>
+      </div>
+  
+      <div class="timeline-item left">
+        <div class="content-box">
+          <h3>🧪 Fase 7: Pruebas</h3>
+          <ul>
+            <li>Test en Expo, revisión visual, depuración de errores.</li>
+          </ul>
+        </div>
+      </div>
+  
+      <div class="timeline-item right">
+        <div class="content-box">
+          <h3>📲 Fase 8: Despliegue</h3>
+          <ul>
+            <li>TestFlight / APK, Landing Page con Vercel.</li>
+          </ul>
+        </div>
+      </div>
+  
+    </div>
+  </section>
+  
+  
+  
+  
+  
+  
+
+  <footer>
+    <div>
+      <h4>Proyecto</h4>
+      <a href="index.html">Inicio</a>
+      <a href="sobre_mi.html">Sobre mí</a>
+      <a href="bullometro.html">Bullómetro</a>
+      <a href="que_personaje_soy.html">¿Qué personaje sería?</a>
+      <a href="APP.html">Prueba la APP</a>
+    </div>
+    <div>
+      <h4>Angela Fernández</h4>
+      <a href="contacto.html">Contacto</a>
+      <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+    </div>
+    <div>
+      <h4>Créditos</h4>
+      <a href="agradecimientos.html">Agradecimientos</a>
+      <a href="#">React & Firebase</a>
+    </div>
+    <p>© 2025 Eventify | Hecho con ❤️ por Angela Fernández</p>
+  </footer>
+  
+  
+
+
+
+  <script>
+    let isTransitioning = false;
+
+    const track = document.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    const prevBtn = document.querySelector('.arrow.left');
+    const nextBtn = document.querySelector('.arrow.right');
+
+    let index = 0;
+    let interval;
+
+    function getSlidesPerView() {
+      return window.innerWidth < 600 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+    }
+
+    function slideWidth() {
+      return slides[0].offsetWidth + 20;
+    }
+
+    function cloneSlides() {
+  // Elimina clones antiguos si existen
+  const oldClones = track.querySelectorAll('.clone');
+  oldClones.forEach(clone => clone.remove());
+
+  const visible = getSlidesPerView();
+  const realSlides = Array.from(track.children);
+  const clonesBefore = realSlides.slice(-visible).map(s => s.cloneNode(true));
+  const clonesAfter = realSlides.slice(0, visible).map(s => s.cloneNode(true));
+  clonesBefore.forEach(clone => { clone.classList.add('clone'); track.insertBefore(clone, track.firstChild); });
+  clonesAfter.forEach(clone => { clone.classList.add('clone'); track.appendChild(clone); });
+}
+
+
+function setup() {
+  cloneSlides();
+  index = getSlidesPerView();
+  moveToSlide(index, false);
+}
+
+
+function moveToSlide(newIndex, animate = true) {
+  if (isTransitioning) return;
+
+  const visible = getSlidesPerView();
+  const total = track.children.length;
+  const realSlides = total - 2 * visible;
+
+  if (animate) {
+    track.style.transition = 'transform 0.5s ease-in-out';
+    isTransitioning = true;
+    track.addEventListener('transitionend', () => {
+      isTransitioning = false;
+    }, { once: true });
+  } else {
+    track.style.transition = 'none';
+  }
+
+  index = newIndex;
+  const offset = slideWidth() * index;
+  track.style.transform = `translateX(-${offset}px)`;
+
+  // Resaltar slide activo (opcional)
+  Array.from(track.children).forEach(s => s.classList.remove('active'));
+  const centerOffset = Math.floor(visible / 2);
+  const activeIndex = index + centerOffset;
+  const activeSlide = track.children[activeIndex];
+  if (activeSlide && !activeSlide.classList.contains('clone')) {
+    activeSlide.classList.add('active');
+  }
+}
+
+
+    function nextSlide() {
+  const visible = getSlidesPerView();
+  const total = track.children.length;
+  const realSlides = total - 2 * visible;
+
+  index++;
+  moveToSlide(index);
+
+  if (index === realSlides + visible) {
+    setTimeout(() => {
+      index = visible;
+      moveToSlide(index, false);
+    }, 500);
+  }
+}
+
+function prevSlide() {
+  const visible = getSlidesPerView();
+
+  index--;
+  moveToSlide(index);
+
+  if (index === 0) {
+    setTimeout(() => {
+      index = track.children.length - visible * 2;
+      moveToSlide(index, false);
+    }, 500);
+  }
+}
+
+
+    function startAutoplay() {
+      interval = setInterval(nextSlide, 4000);
+    }
+
+    function stopAutoplay() {
+      clearInterval(interval);
+    }
+
+    nextBtn.addEventListener('click', () => { nextSlide(); stopAutoplay(); startAutoplay(); });
+    prevBtn.addEventListener('click', () => { prevSlide(); stopAutoplay(); startAutoplay(); });
+    document.querySelector('.carousel-wrapper').addEventListener('mouseenter', stopAutoplay);
+    document.querySelector('.carousel-wrapper').addEventListener('mouseleave', startAutoplay);
+    window.addEventListener('resize', () => moveToSlide(index, false));
+    window.addEventListener('load', () => { setup(); startAutoplay(); });
+    const botonesPerfil = document.querySelectorAll(".perfiles-interactivos button");
+  const mensaje = document.getElementById("mensaje");
+  botonesPerfil.forEach(btn => {
+    btn.addEventListener("click", () => {
+      mensaje.textContent = btn.dataset.text;
+    });
+  });
+  function responder(tipo) {
+    const r = document.getElementById("respuesta-interactiva");
+    if (tipo === "taller") {
+      r.textContent = "¡Eso es espíritu! Ya solo falta la sala, la aguja y... los alumnos.";
+    } else if (tipo === "aprender") {
+      r.textContent = "Spoiler: aquí se aprende de verdad, con manos, no con ads de 15s.";
+    } else {
+      r.textContent = "Bien, pero si al menos compartes el vino, se te perdona.";
+    }
+  }
+
+  const toggleButton = document.getElementById('menu-toggle');
+    const menu = document.getElementById('menu');
+  
+    toggleButton.addEventListener('click', () => {
+      menu.classList.toggle('active');
+    });
+  </script>
+  
+</body>
+
+</html>
