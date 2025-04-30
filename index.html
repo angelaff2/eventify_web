@@ -35,7 +35,7 @@
     <div class="hero-text">
       <h1>Eventify: Conectando Bullas</h1>
       <p>Redescubre tu pueblo a través de eventos, habilidades y encuentros entre vecinos.</p>
-      <a href="#que-es" class="btn-primary">Prueba la DEMO</a>
+      <a href="APP.html" class="btn-primary">Prueba la DEMO</a>
     </div>
     <div class="hero-image">
       <img src="imagenes/homepage.jpg" alt="App Eventify" />
@@ -367,150 +367,154 @@
   
   
 
-
-
   <script>
     let isTransitioning = false;
-
+    
     const track = document.querySelector('.carousel-track');
     const slides = Array.from(track.children);
     const prevBtn = document.querySelector('.arrow.left');
     const nextBtn = document.querySelector('.arrow.right');
-
+    
     let index = 0;
     let interval;
-
+    
     function getSlidesPerView() {
       return window.innerWidth < 600 ? 1 : window.innerWidth < 1024 ? 2 : 3;
     }
-
+    
     function slideWidth() {
       return slides[0].offsetWidth + 20;
     }
-
+    
     function cloneSlides() {
-  // Elimina clones antiguos si existen
-  const oldClones = track.querySelectorAll('.clone');
-  oldClones.forEach(clone => clone.remove());
-
-  const visible = getSlidesPerView();
-  const realSlides = Array.from(track.children);
-  const clonesBefore = realSlides.slice(-visible).map(s => s.cloneNode(true));
-  const clonesAfter = realSlides.slice(0, visible).map(s => s.cloneNode(true));
-  clonesBefore.forEach(clone => { clone.classList.add('clone'); track.insertBefore(clone, track.firstChild); });
-  clonesAfter.forEach(clone => { clone.classList.add('clone'); track.appendChild(clone); });
-}
-
-
-function setup() {
-  cloneSlides();
-  index = getSlidesPerView();
-  moveToSlide(index, false);
-}
-
-
-function moveToSlide(newIndex, animate = true) {
-  if (isTransitioning) return;
-
-  const visible = getSlidesPerView();
-  const total = track.children.length;
-  const realSlides = total - 2 * visible;
-
-  if (animate) {
-    track.style.transition = 'transform 0.5s ease-in-out';
-    isTransitioning = true;
-    track.addEventListener('transitionend', () => {
-      isTransitioning = false;
-    }, { once: true });
-  } else {
-    track.style.transition = 'none';
-  }
-
-  index = newIndex;
-  const offset = slideWidth() * index;
-  track.style.transform = `translateX(-${offset}px)`;
-
-  // Resaltar slide activo (opcional)
-  Array.from(track.children).forEach(s => s.classList.remove('active'));
-  const centerOffset = Math.floor(visible / 2);
-  const activeIndex = index + centerOffset;
-  const activeSlide = track.children[activeIndex];
-  if (activeSlide && !activeSlide.classList.contains('clone')) {
-    activeSlide.classList.add('active');
-  }
-}
-
-
-    function nextSlide() {
-  const visible = getSlidesPerView();
-  const total = track.children.length;
-  const realSlides = total - 2 * visible;
-
-  index++;
-  moveToSlide(index);
-
-  if (index === realSlides + visible) {
-    setTimeout(() => {
-      index = visible;
-      moveToSlide(index, false);
-    }, 500);
-  }
-}
-
-function prevSlide() {
-  const visible = getSlidesPerView();
-
-  index--;
-  moveToSlide(index);
-
-  if (index === 0) {
-    setTimeout(() => {
-      index = track.children.length - visible * 2;
-      moveToSlide(index, false);
-    }, 500);
-  }
-}
-
-
-    function startAutoplay() {
-      interval = setInterval(nextSlide, 4000);
+      const oldClones = track.querySelectorAll('.clone');
+      oldClones.forEach(clone => clone.remove());
+    
+      const visible = getSlidesPerView();
+      const realSlides = Array.from(track.children);
+      const clonesBefore = realSlides.slice(-visible).map(s => s.cloneNode(true));
+      const clonesAfter = realSlides.slice(0, visible).map(s => s.cloneNode(true));
+      clonesBefore.forEach(clone => { clone.classList.add('clone'); track.insertBefore(clone, track.firstChild); });
+      clonesAfter.forEach(clone => { clone.classList.add('clone'); track.appendChild(clone); });
     }
-
+    
+    function setup() {
+      cloneSlides();
+      index = getSlidesPerView();
+      moveToSlide(index, false);
+    }
+    
+    function moveToSlide(newIndex, animate = true) {
+      if (isTransitioning) return;
+    
+      const visible = getSlidesPerView();
+      const total = track.children.length;
+      const realSlides = total - 2 * visible;
+    
+      // Si nos movemos justo antes del primer real, salta al final
+      if (newIndex < visible) {
+        animate = true;
+        isTransitioning = true;
+        track.style.transition = 'transform 0.5s ease-in-out';
+        const offset = slideWidth() * newIndex;
+        track.style.transform = `translateX(-${offset}px)`;
+        index = newIndex;
+        track.addEventListener('transitionend', () => {
+          track.style.transition = 'none';
+          index = realSlides + visible - 1;
+          const offset = slideWidth() * index;
+          track.style.transform = `translateX(-${offset}px)`;
+          isTransitioning = false;
+          updateActiveSlide();
+        }, { once: true });
+        return;
+      }
+    
+      // Si nos movemos justo después del último real, salta al inicio
+      if (newIndex >= realSlides + visible) {
+        animate = true;
+        isTransitioning = true;
+        track.style.transition = 'transform 0.5s ease-in-out';
+        const offset = slideWidth() * newIndex;
+        track.style.transform = `translateX(-${offset}px)`;
+        index = newIndex;
+        track.addEventListener('transitionend', () => {
+          track.style.transition = 'none';
+          index = visible;
+          const offset = slideWidth() * index;
+          track.style.transform = `translateX(-${offset}px)`;
+          isTransitioning = false;
+          updateActiveSlide();
+        }, { once: true });
+        return;
+      }
+    
+      track.style.transition = animate ? 'transform 0.5s ease-in-out' : 'none';
+      const offset = slideWidth() * newIndex;
+      track.style.transform = `translateX(-${offset}px)`;
+      index = newIndex;
+      updateActiveSlide();
+    }
+    
+    function updateActiveSlide() {
+      const allSlides = track.querySelectorAll('.card-slide');
+      allSlides.forEach(slide => slide.classList.remove('active'));
+      const currentSlide = track.children[index];
+      if (currentSlide && currentSlide.classList.contains('card-slide')) {
+        currentSlide.classList.add('active');
+      }
+    }
+    
+    function nextSlide() {
+      if (!isTransitioning) {
+        moveToSlide(index + 1);
+      }
+    }
+    
+    function prevSlide() {
+      if (!isTransitioning) {
+        moveToSlide(index - 1);
+      }
+    }
+    
+    function startAutoplay() {
+      interval = setInterval(() => {
+        nextSlide();
+      }, 4000);
+    }
+    
     function stopAutoplay() {
       clearInterval(interval);
     }
-
+    
     nextBtn.addEventListener('click', () => { nextSlide(); stopAutoplay(); startAutoplay(); });
     prevBtn.addEventListener('click', () => { prevSlide(); stopAutoplay(); startAutoplay(); });
     document.querySelector('.carousel-wrapper').addEventListener('mouseenter', stopAutoplay);
     document.querySelector('.carousel-wrapper').addEventListener('mouseleave', startAutoplay);
     window.addEventListener('resize', () => moveToSlide(index, false));
     window.addEventListener('load', () => { setup(); startAutoplay(); });
-    const botonesPerfil = document.querySelectorAll(".perfiles-interactivos button");
-  const mensaje = document.getElementById("mensaje");
-  botonesPerfil.forEach(btn => {
-    btn.addEventListener("click", () => {
-      mensaje.textContent = btn.dataset.text;
-    });
-  });
-  function responder(tipo) {
-    const r = document.getElementById("respuesta-interactiva");
-    if (tipo === "taller") {
-      r.textContent = "¡Eso es espíritu! Ya solo falta la sala, la aguja y... los alumnos.";
-    } else if (tipo === "aprender") {
-      r.textContent = "Spoiler: aquí se aprende de verdad, con manos, no con ads de 15s.";
-    } else {
-      r.textContent = "Bien, pero si al menos compartes el vino, se te perdona.";
+    
+    // Botones identitarios
+    function responder(tipo) {
+      const r = document.getElementById("respuesta-interactiva");
+      if (tipo === "taller") {
+        r.textContent = "¡Eso es espíritu! Ya solo falta la sala, la aguja y... los alumnos.";
+      } else if (tipo === "aprender") {
+        r.textContent = "Spoiler: aquí se aprende de verdad, con manos, no con ads de 15s.";
+      } else {
+        r.textContent = "Bien, pero si al menos compartes el vino, se te perdona.";
+      }
     }
-  }
-
-  const toggleButton = document.getElementById('menu-toggle');
+    
+    // Menú responsive
+    const toggleButton = document.getElementById('menu-toggle');
     const menu = document.getElementById('menu');
-  
     toggleButton.addEventListener('click', () => {
       menu.classList.toggle('active');
     });
-  </script>
+    </script>
+    
+    
   
 </body>
 
